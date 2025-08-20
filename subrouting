@@ -1,0 +1,15 @@
+FORM get_data.
+  SELECT * FROM zemployee INTO TABLE it_employee.
+ENDFORM.
+
+FORM display_data.
+  CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+    EXPORTING
+      it_fieldcat = it_fieldcat
+    TABLES
+      t_outtab    = it_employee.
+ENDFORM.
+
+START-OF-SELECTION.
+  PERFORM get_data.
+  PERFORM display_data.
