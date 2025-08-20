@@ -1,0 +1,16 @@
+REPORT zemployee_report.
+
+TABLES: zemployee.
+
+SELECT-OPTIONS: s_dept FOR zemployee-dept.
+
+START-OF-SELECTION.
+  WRITE: / 'Employee ID', 15 'Name', 45 'Department', 65 'Designation', 90 'Salary'.
+  ULINE.
+
+  SELECT * FROM zemployee
+    WHERE dept IN s_dept.
+    WRITE: / zemployee-empid, 15 zemployee-empname,
+             45 zemployee-dept, 65 zemployee-designation,
+             90 zemployee-salary.
+  ENDSELECT. 
