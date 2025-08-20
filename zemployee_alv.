@@ -1,0 +1,40 @@
+REPORT zemployee_alv.
+
+TABLES: zemployee.
+TYPE-POOLS: slis.
+
+DATA: it_employee TYPE TABLE OF zemployee,
+      wa_employee TYPE zemployee,
+      it_fieldcat TYPE slis_t_fieldcat_alv,
+      wa_fieldcat TYPE slis_fieldcat_alv.
+
+START-OF-SELECTION.
+  SELECT * FROM zemployee INTO TABLE it_employee.
+
+* Build Field Catalog
+  CLEAR wa_fieldcat.
+  wa_fieldcat-fieldname = 'EMPID'.
+  wa_fieldcat-seltext_m = 'Employee ID'.
+  APPEND wa_fieldcat TO it_fieldcat.
+
+  CLEAR wa_fieldcat.
+  wa_fieldcat-fieldname = 'EMPNAME'.
+  wa_fieldcat-seltext_m = 'Name'.
+  APPEND wa_fieldcat TO it_fieldcat.
+
+  CLEAR wa_fieldcat.
+  wa_fieldcat-fieldname = 'DEPT'.
+  wa_fieldcat-seltext_m = 'Department'.
+  APPEND wa_fieldcat TO it_fieldcat.
+
+  CLEAR wa_fieldcat.
+  wa_fieldcat-fieldname = 'SALARY'.
+  wa_fieldcat-seltext_m = 'Salary'.
+  APPEND wa_fieldcat TO it_fieldcat.
+
+* Display ALV
+  CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+    EXPORTING
+      it_fieldcat = it_fieldcat
+    TABLES
+      t_outtab    = it_employee.
