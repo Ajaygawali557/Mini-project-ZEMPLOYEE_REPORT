@@ -1,0 +1,17 @@
+//Smartform for Salary Slip
+//Transaction: SMARTFORMS → Create ZEMPLOYEE_SALARYSLIP
+//Input: EMPID
+//output: PDF salary slip with Name, Department, Salary.
+//Call Smartform in ABAP:
+
+DATA: fm_name TYPE rs38l_fnam.
+
+CALL FUNCTION 'SSF_FUNCTION_MODULE_NAME'
+  EXPORTING
+    formname = 'ZEMPLOYEE_SALARYSLIP'
+  IMPORTING
+    fm_name  = fm_name.
+
+CALL FUNCTION fm_name
+  EXPORTING
+    empid = 'E1001'.   "Pass parameter
